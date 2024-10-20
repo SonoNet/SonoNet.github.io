@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mein Minecraft Server</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+                :root {
+            --bg-color: #f5f5f7;
+            --text-color: #1d1d1f;
+            --card-bg: #ffffff;
+            --button-bg: #0071e3;
+            --button-text: #ffffff;
+            --status-online: #34c759;
+            --status-offline: #ff3b30;
+        }
+        .dark-mode {
+            --bg-color: #1d1d1f;
+            --text-color: #f5f5f7;
+            --card-bg: #2c2c2e;
+            --button-bg: #0077ed;
+            --button-text: #ffffff;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        nav {
+            background-color: var(--card-bg);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: #86868b;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .feature {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, background-color 0.3s;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        .feature h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .cta {
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0077ed;
+        }
+        #darkModeToggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .popup h2 {
+            margin-bottom: 1rem;
+        }
+        .popup input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .popup button {
+            padding: 0.5rem 1rem;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .server-status {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        .status-online {
+            background-color: var(--status-online);
+        }
+        .status-offline {
+            background-color: var(--status-offline);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="https://via.placeholder.com/40" alt="Logo">
+            <span>MeineMC-Welt</span>
+        </div>
+        <div class="nav-buttons">
+            <button class="btn">Login</button>
+            <button id="darkModeToggle">🌓</button>
+        </div>
+    </nav>
+    <div class="container">
+        <header>
+            <h1>Willkommen auf unserem Minecraft Server</h1>
+            <p class="subtitle">Entdecke eine Welt voller Abenteuer und Kreativität</p>
+        </header>
+        <div class="server-status">
+            <h2>Server Status</h2>
+            <p><span class="status-indicator" id="statusIndicator"></span> <span id="statusText"></span></p>
+            <p>Spieler online: <span id="playerCount"></span></p>
+            <p>Server Version: <span id="serverVersion"></span></p>
+        </div>
+        <section class="features">
+            <div class="feature">
+                <h2>Freundliche Community</h2>
+                <p>Tritt einer wachsenden Gemeinschaft von Spielern bei und knüpfe neue Freundschaften.</p>
+            </div>
+            <div class="feature">
+                <h2>Regelmäßige Events</h2>
+                <p>Nimm an spannenden Wettbewerben und einzigartigen Veranstaltungen teil.</p>
+            </div>
+            <div class="feature">
+                <h2>Leistungsstarke Server</h2>
+                <p>Genieße ein reibungsloses Spielerlebnis dank unserer hochmodernen Server-Infrastruktur.</p>
+            </div>
+        </section>
+        <div class="cta">
+            <button class="btn" id="joinBtn">Jetzt beitreten</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h2>Server-IP</h2>
+        <input type="text" id="serverIP" value="mc.sono.is-a.dev" readonly>
+        <button id="copyBtn">Kopieren</button>
+    </div>
+
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const joinBtn = document.getElementById('joinBtn');
+        const popup = document.getElementById('popup');
+        const overlay = document.getElementById('overlay');
+        const serverIP = document.getElementById('serverIP');
+        const copyBtn = document.getElementById('copyBtn');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const statusText = document.getElementById('statusText');
+        const playerCount = document.getElementById('playerCount');
+        const serverVersion = document.getElementById('serverVersion');
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            darkModeToggle.textContent = body.classList.contains('dark-mode') ? '☀️' : '🌓';
+        });
+
+        joinBtn.addEventListener('click', () => {
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        });
+
+        overlay.addEventListener('click', () => {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+
+        copyBtn.addEventListener('click', () => {
+            serverIP.select();
+            document.execCommand('copy');
+            alert('IP wurde in die Zwischenablage kopiert!');
+        });
+
+        // Real server status update using the Minecraft Server Status API
+        function updateServerStatus() {
+            fetch('https://api.mcsrvstat.us/2/mc.sono.is-a.dev')
+                .then(response => response.json())
+                .then(data => {
+                    const isOnline = data.online;
+                    const players = isOnline ? data.players.online : 0;
+                    const maxPlayers = isOnline ? data.players.max : 0;
+                    const version = isOnline ? data.version : 'N/A';
+
+                    statusIndicator.className = isOnline ? 'status-indicator status-online' : 'status-indicator status-offline';
+                    statusText.textContent = isOnline ? 'Online' : 'Offline';
+                    playerCount.textContent = `${players} / ${maxPlayers}`;
+                    serverVersion.textContent = version;
+                })
+                .catch(error => {
+                    console.error('Error fetching server status:', error);
+                    statusIndicator.className = 'status-indicator status-offline';
+                    statusText.textContent = 'Fehler beim Abrufen des Status';
+                    playerCount.textContent = 'N/A';
+                    serverVersion.textContent = 'N/A';
+                });
+        }
+
+        // Update server status every 30 seconds
+        updateServerStatus();
+        setInterval(updateServerStatus, 30000);
+    </script>
+</body>
+</html>
