@@ -230,7 +230,7 @@
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
         <h2>Server-IP</h2>
-        <input type="text" id="serverIP" value="play.sononetwork.de" readonly>
+        <input type="text" id="serverIP" value="server01.sononetwork.de" readonly>
         <button id="copyBtn">Kopieren</button>
     </div>
 
@@ -270,7 +270,7 @@
 
         // Real server status update using the Minecraft Server Status API
         function updateServerStatus() {
-            fetch('https://api.mcsrvstat.us/2/play.sononetwork.de')
+            fetch('https://api.mcsrvstat.us/2/server01.sononetwork.de')
                 .then(response => response.json())
                 .then(data => {
                     const isOnline = data.online;
