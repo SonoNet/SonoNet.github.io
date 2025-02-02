@@ -184,6 +184,26 @@
         .status-offline {
             background-color: var(--status-offline);
         }
+        /* Additional styles for the new popup */
+        .initial-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            text-align: center;
+        }
+        .initial-popup h2 {
+            margin-bottom: 1rem;
+        }
+        .initial-popup p {
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -233,6 +253,14 @@
         <input type="text" id="serverIP" value="server01.sononetwork.de" readonly>
         <button id="copyBtn">Kopieren</button>
     </div>
+    
+    <!-- New initial popup -->
+    <div class="overlay" id="initialOverlay"></div>
+    <div class="initial-popup" id="initialPopup">
+        <h2>Warnung!</h2>
+        <p>Aufgrund eines Hackerangriffes wurden alle Services abgeschaltet. Wurde jedoch ein Server vergessen, dies bitte umgehend den Serverstaff mitteilen.</p>
+        <button id="initialCloseBtn">Schließen</button>
+    </div>
 
     <script>
         const darkModeToggle = document.getElementById('darkModeToggle');
@@ -246,6 +274,11 @@
         const statusText = document.getElementById('statusText');
         const playerCount = document.getElementById('playerCount');
         const serverVersion = document.getElementById('serverVersion');
+        
+        // Elements for the new initial popup
+        const initialPopup = document.getElementById('initialPopup');
+        const initialOverlay = document.getElementById('initialOverlay');
+        const initialCloseBtn = document.getElementById('initialCloseBtn');
 
         darkModeToggle.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
@@ -295,6 +328,22 @@
         // Update server status every 30 seconds
         updateServerStatus();
         setInterval(updateServerStatus, 30000);
+
+        // Show initial popup when the page loads
+        window.addEventListener('load', () => {
+            initialPopup.style.display = 'block';
+            initialOverlay.style.display = 'block';
+        });
+
+        initialCloseBtn.addEventListener('click', () => {
+            initialPopup.style.display = 'none';
+            initialOverlay.style.display = 'none';
+        });
+
+        initialOverlay.addEventListener('click', () => {
+            initialPopup.style.display = 'none';
+            initialOverlay.style.display = 'none';
+        });
     </script>
 </body>
 </html>
